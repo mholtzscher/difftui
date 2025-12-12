@@ -1,6 +1,6 @@
 import type { Accessor, Setter } from "solid-js";
-import type { TextareaRef } from "../types";
 import { theme } from "../theme";
+import type { TextareaRef } from "../types";
 
 interface TextPanelProps {
 	title: string;

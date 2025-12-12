@@ -1,19 +1,19 @@
 import { useRenderer } from "@opentui/solid";
 import { createSignal, Show } from "solid-js";
-import type {
-	View,
-	DiffMode,
-	FocusedPanel,
-	TextareaRef,
-	ScrollboxRef,
-	ActionHandlers,
-} from "./types";
-import { createRef } from "./types";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { clipboard } from "./services/clipboard";
-import { InputView } from "./views/InputView";
-import { DiffView } from "./views/DiffView";
 import { theme } from "./theme";
+import type {
+	ActionHandlers,
+	DiffMode,
+	FocusedPanel,
+	ScrollboxRef,
+	TextareaRef,
+	View,
+} from "./types";
+import { createRef } from "./types";
+import { DiffView } from "./views/DiffView";
+import { InputView } from "./views/InputView";
 
 export function App() {
 	// State signals - separated by concern

@@ -1,6 +1,6 @@
 import { useKeyboard } from "@opentui/solid";
-import type { View, KeyInfo, ActionHandlers } from "../types";
 import { getShortcutAction } from "../config/shortcuts";
+import type { ActionHandlers, KeyInfo, View } from "../types";
 
 interface UseKeyboardShortcutsOptions {
 	getView: () => View;

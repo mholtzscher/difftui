@@ -1,8 +1,8 @@
-import type { TextState, FocusState, RefsState } from "../types";
-import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
 import { TextPanel } from "../components/TextPanel";
 import { generateHints } from "../config/shortcuts";
+import type { FocusState, RefsState, TextState } from "../types";
 
 // InputView only needs text, focus, and refs - not navigation state
 interface InputViewProps {

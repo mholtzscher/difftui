@@ -1,16 +1,16 @@
 import { Show } from "solid-js";
+import { EmptyDiffMessage, NoChangesMessage } from "../components/EmptyState";
+import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
+import { generateHints } from "../config/shortcuts";
+import { diffService } from "../services/diff";
+import { theme } from "../theme";
 import type {
-	TextState,
 	NavigationState,
 	RefsState,
 	ScrollboxRef,
+	TextState,
 } from "../types";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { EmptyDiffMessage, NoChangesMessage } from "../components/EmptyState";
-import { diffService } from "../services/diff";
-import { generateHints } from "../config/shortcuts";
-import { theme } from "../theme";
 
 // DiffView only needs text (read-only), navigation (for mode), and scrollbox ref
 interface DiffViewProps {
