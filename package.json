@@ -1,28 +1,29 @@
 {
-  "name": "simple-diff",
-  "module": "src/index.tsx",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "dev": "bun run --watch src/index.tsx",
-    "build": "bun run ./bundle.ts",
-    "lint": "bunx @biomejs/biome check .",
-    "lint:fix": "bunx @biomejs/biome check --write ."
-  },
-  "dependencies": {
-    "@opentui/core": "^0.1.60",
-    "@opentui/solid": "^0.1.60",
-    "diff": "^8.0.2",
-    "solid-js": "^1.9.9"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.28.3",
-    "@babel/preset-typescript": "^7.27.1",
-    "@types/bun": "latest",
-    "@types/diff": "^8.0.0",
-    "babel-preset-solid": "^1.9.9"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  }
+	"name": "simple-diff",
+	"module": "src/index.tsx",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "bun run --watch src/index.tsx",
+		"build": "bun run ./bundle.ts",
+		"lint": "bunx @biomejs/biome check .",
+		"lint:fix": "bunx @biomejs/biome check --write .",
+		"format": "bunx @biomejs/biome format --write ."
+	},
+	"dependencies": {
+		"@opentui/core": "^0.1.60",
+		"@opentui/solid": "^0.1.60",
+		"diff": "^8.0.2",
+		"solid-js": "^1.9.9"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.28.3",
+		"@babel/preset-typescript": "^7.27.1",
+		"@types/bun": "latest",
+		"@types/diff": "^8.0.0",
+		"babel-preset-solid": "^1.9.9"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	}
 }
