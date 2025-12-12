@@ -17,7 +17,9 @@
     "@babel/preset-typescript": "^7.27.1",
     "@opentui/core": "^0.1.60",
     "@opentui/solid": "^0.1.60",
+    "@types/diff": "^8.0.0",
     "babel-preset-solid": "^1.9.9",
+    "diff": "^8.0.2",
     "solid-js": "^1.9.9"
   }
 }
