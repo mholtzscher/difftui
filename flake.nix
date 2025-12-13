@@ -5,13 +5,12 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     systems.url = "github:nix-systems/default";
     bun2nix = {
-      url = "github:nix-community/bun2nix?tag=2.0.5";
+      url = "github:nix-community/bun2nix?tag=2.0.6";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
   };
 
-  # Use the cached version of bun2nix from the nix-community cli
   nixConfig = {
     extra-substituters = [
       "https://cache.nixos.org"
@@ -26,36 +25,75 @@
   outputs =
     inputs:
     let
-      # Read each system from the nix-systems input
       eachSystem = inputs.nixpkgs.lib.genAttrs (import inputs.systems);
 
-      # Access the package set for a given system
       pkgsFor = eachSystem (
         system:
         import inputs.nixpkgs {
           inherit system;
-          # Use the bun2nix overlay, which puts `bun2nix` in pkgs
-          # You can, of course, still access
-          # inputs.bun2nix.packages.${system}.default instead
-          # and use that to build your package instead
           overlays = [ inputs.bun2nix.overlays.default ];
         }
       );
     in
     {
-      packages = eachSystem (system: {
-        # Produce a package for this template with bun2nix in
-        # the overlay
-        default = pkgsFor.${system}.callPackage ./default.nix { };
-      });
+      packages = eachSystem (
+        system:
+        let
+          pkgs = pkgsFor.${system};
+        in
+        {
+          default = pkgs.bun2nix.mkDerivation {
+            pname = "simple-diff";
+            version = "0.1.0";
+
+            src = ./.;
+
+            bunDeps = pkgs.bun2nix.fetchBunDeps {
+              bunNix = ./bun.nix;
+            };
+
+            # bunInstallFlags = [
+            # "--linker=isolated"
+            # "--backend=copyfile"
+            # ];
+
+            nativeBuildInputs = with pkgs; [
+              makeWrapper
+              bun
+            ];
+
+            buildPhase = ''
+              runHook preBuild
+              bun run ./bundle.ts
+              runHook postBuild
+            '';
+
+            installPhase = ''
+              runHook preInstall
+              mkdir -p $out/lib/simple-diff $out/bin
+
+              cp -r dist node_modules $out/lib/simple-diff
+
+              makeWrapper ${pkgs.bun}/bin/bun $out/bin/simple-diff \
+                --add-flags "run" \
+                --add-flags "$out/lib/simple-diff/dist/index.js" \
+                --argv0 simple-diff
+
+              runHook postInstall
+            '';
+
+            meta = {
+              description = "A simple diff tool";
+              mainProgram = "simple-diff";
+            };
+          };
+        }
+      );
 
       devShells = eachSystem (system: {
         default = pkgsFor.${system}.mkShell {
           packages = with pkgsFor.${system}; [
             bun
-
-            # Add the bun2nix binary to our devshell
-            # Optional now that we have a binary on npm
             bun2nix
           ];
 

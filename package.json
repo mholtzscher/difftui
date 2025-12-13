@@ -8,23 +8,25 @@
 		"build": "bun run ./bundle.ts",
 		"lint": "bunx @biomejs/biome check .",
 		"lint:fix": "bunx @biomejs/biome check --write .",
-		"format": "bunx @biomejs/biome format --write ."
+		"format": "bunx @biomejs/biome format --write .",
+		"postinstall": "bun2nix -o bun.nix"
 	},
 	"dependencies": {
 		"@opentui/core": "^0.1.60",
 		"@opentui/solid": "^0.1.60",
 		"diff": "^8.0.2",
-		"solid-js": "^1.9.9"
+		"solid-js": "^1.9.10"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.28.3",
-		"@babel/preset-typescript": "^7.27.1",
+		"@babel/core": "^7.28.5",
+		"@babel/preset-typescript": "^7.28.5",
 		"@types/babel__core": "^7.20.5",
-		"@types/bun": "latest",
+		"@types/bun": "^1.3.4",
 		"@types/diff": "^8.0.0",
-		"babel-preset-solid": "^1.9.9"
+		"babel-preset-solid": "^1.9.10",
+		"bun2nix": "^2.0.6"
 	},
 	"peerDependencies": {
-		"typescript": "^5"
+		"typescript": "^5.9.2"
 	}
 }
