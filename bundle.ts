@@ -2,7 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import solidPlugin from "./node_modules/@opentui/solid/scripts/solid-plugin";
+import solidPlugin from "@opentui/solid/bun-plugin";
 
 const dir = process.cwd();
 
