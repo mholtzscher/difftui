@@ -1,13 +1,10 @@
 name: Update Dependencies
 
-# Disabled until bun2nix workflow issues are resolved
-# on:
-#   schedule:
-#     # Run daily at 6am UTC
-#     - cron: "0 6 * * *"
-#   workflow_dispatch:
-
-on: workflow_dispatch
+on:
+  schedule:
+    # Run daily at 6am UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
