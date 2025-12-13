@@ -11,12 +11,12 @@ permissions:
   pull-requests: write
 
 jobs:
-  update-bun:
+  bun:
     uses: mholtzscher/github-actions/.github/workflows/update-bun-deps.yml@main
     secrets:
       token: ${{ secrets.PAT }}
 
-  update-nix:
+  nix:
     uses: mholtzscher/github-actions/.github/workflows/update-nix-flake.yml@main
     secrets:
       token: ${{ secrets.PAT }}
