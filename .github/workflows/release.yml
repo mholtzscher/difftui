@@ -19,7 +19,7 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
 
   build:
     needs: release-please
@@ -59,7 +59,7 @@ jobs:
 
       - name: Upload Release Asset
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           gh release upload ${{ needs.release-please.outputs.tag_name }} \
             ${{ matrix.artifact }} \
