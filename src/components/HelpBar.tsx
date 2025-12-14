@@ -9,20 +9,6 @@ export interface HelpBarProps {
 	items: HelpItem[];
 }
 
-/**
- * HelpBar - Horizontal bar of key hints
- *
- * Renders key hints inline with double-space separation.
- * Use this for status bars and dialog footers.
- *
- * @example
- * <HelpBar items={[
- *   { key: 'j/k', description: 'navigate' },
- *   { key: 'Enter', description: 'select' },
- *   { key: 'Esc', description: 'cancel' },
- * ]} />
- * // Renders: "j/k navigate  Enter select  Esc cancel"
- */
 export function HelpBar({ items }: HelpBarProps) {
 	return (
 		<box flexDirection="row">
