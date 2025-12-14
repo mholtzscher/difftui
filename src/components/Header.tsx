@@ -14,7 +14,10 @@ export function Header(props: HeaderProps) {
 			paddingBottom={1}
 			backgroundColor={theme.base}
 		>
-			<ascii_font font="tiny" text="difftui" />
+			<box flexDirection="row" columnGap={1}>
+				<ascii_font font="tiny" text="diff" color={theme.blue} />
+				<ascii_font font="tiny" text="tui" color={theme.mauve} />
+			</box>
 			<Show when={props.subtitle}>
 				<text fg={theme.subtext0}>{props.subtitle}</text>
 			</Show>
