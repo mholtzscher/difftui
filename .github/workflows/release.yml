@@ -55,7 +55,6 @@ jobs:
 
       - name: Build executable
         run: |
-          rm bunfig.toml
           bun build ./dist/index.js \
             --compile \
             --target=${{ matrix.target }} \
