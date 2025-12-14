@@ -43,7 +43,8 @@
         in
         {
           default = pkgs.bun2nix.mkDerivation {
-            name = "difftui";
+            pname = "difftui";
+            packageJson = ./package.json;
             src = ./.;
 
             bunDeps = pkgs.bun2nix.fetchBunDeps {
