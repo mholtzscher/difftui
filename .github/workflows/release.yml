@@ -28,16 +28,12 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            target: bun-linux-x64
             artifact: difftui-linux-x64
-          - os: ubuntu-latest
-            target: bun-linux-arm64
+          - os: ubuntu-24.04-arm
             artifact: difftui-linux-arm64
-          - os: macos-latest
-            target: bun-darwin-x64
+          - os: macos-13
             artifact: difftui-darwin-x64
           - os: macos-latest
-            target: bun-darwin-arm64
             artifact: difftui-darwin-arm64
     runs-on: ${{ matrix.os }}
     steps:
@@ -54,11 +50,7 @@ jobs:
         run: bun run bundle.ts
 
       - name: Build executable
-        run: |
-          bun build ./dist/index.js \
-            --compile \
-            --target=${{ matrix.target }} \
-            --outfile=${{ matrix.artifact }}
+        run: bun build ./dist/index.js --compile --outfile=${{ matrix.artifact }}
 
       - name: Upload Release Asset
         env:
