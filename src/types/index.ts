@@ -5,15 +5,13 @@ export type View = "input" | "diff";
 export type DiffMode = "unified" | "split";
 export type FocusedPanel = "left" | "right";
 
-// Properly typed refs for OpenTUI components
-export interface EditBuffer {
-	getText(): string;
-	setText(text: string): void;
-	insertText(text: string): void;
-}
-
+// OpenTUI textarea ref - provides access to the edit buffer
 export interface TextareaRef {
-	editBuffer?: EditBuffer;
+	editBuffer?: {
+		getText(): string;
+		setText(text: string): void;
+		insertText(text: string): void;
+	};
 }
 
 export interface ScrollboxRef {
