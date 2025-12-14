@@ -12,7 +12,7 @@ export function Header(props: HeaderProps) {
 			alignItems="center"
 			paddingTop={1}
 			paddingBottom={1}
-			backgroundColor={theme.headerBg}
+			backgroundColor={theme.base}
 		>
 			<ascii_font font="tiny" text="difftui" />
 			<Show when={props.subtitle}>

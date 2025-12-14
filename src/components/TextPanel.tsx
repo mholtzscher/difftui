@@ -20,7 +20,6 @@ export function TextPanel(props: TextPanelProps) {
 			border
 			borderStyle="rounded"
 			borderColor={props.focused ? theme.borderFocused : theme.border}
-			backgroundColor={theme.base}
 			title={props.title}
 		>
 			<textarea
@@ -28,11 +27,12 @@ export function TextPanel(props: TextPanelProps) {
 					props.textareaRef.current = el;
 				}}
 				flexGrow={1}
+				border={false}
 				initialValue={props.value()}
 				placeholder={props.placeholder}
-				backgroundColor={props.focused ? theme.inputFocusedBg : theme.inputBg}
+				backgroundColor="transparent"
+				focusedBackgroundColor="transparent"
 				textColor={theme.text}
-				focusedBackgroundColor={theme.inputFocusedBg}
 				focusedTextColor={theme.text}
 				onContentChange={() => {
 					// Update the value when content changes

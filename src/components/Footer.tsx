@@ -7,7 +7,7 @@ interface FooterProps {
 export function Footer(props: FooterProps) {
 	return (
 		<box
-			backgroundColor={theme.footerBg}
+			backgroundColor={theme.base}
 			paddingLeft={2}
 			paddingRight={2}
 			height={1}

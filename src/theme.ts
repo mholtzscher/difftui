@@ -53,16 +53,12 @@ export interface Theme {
 	// UI element colors
 	border: string;
 	borderFocused: string;
-	inputBg: string;
-	inputFocusedBg: string;
-	headerBg: string;
-	footerBg: string;
 }
 
 // Catppuccin Mocha palette
 export const catppuccinMocha: Theme = {
 	// Base colors
-	base: "#1e1e2e",
+	base: "#1B1B29",
 	mantle: "#181825",
 	crust: "#11111b",
 	surface0: "#313244",
@@ -111,10 +107,6 @@ export const catppuccinMocha: Theme = {
 	// UI element colors
 	border: "#45475a",
 	borderFocused: "#89b4fa",
-	inputBg: "#313244",
-	inputFocusedBg: "#45475a",
-	headerBg: "#181825",
-	footerBg: "#181825",
 };
 
 // Export the active theme
