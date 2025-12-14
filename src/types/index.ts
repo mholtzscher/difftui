@@ -70,10 +70,3 @@ export interface KeyInfo {
 	meta?: boolean;
 	shift?: boolean;
 }
-
-// Action handlers for keyboard shortcuts
-export type ActionHandler = () => void | Promise<void>;
-
-export interface ActionHandlers {
-	[key: string]: ActionHandler;
-}

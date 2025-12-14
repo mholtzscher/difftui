@@ -1,4 +1,5 @@
-import { Show } from "solid-js";
+import { useKeyboard } from "@opentui/solid";
+import { createMemo, Show } from "solid-js";
 import { EmptyDiffMessage, NoChangesMessage } from "../components/EmptyState";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
@@ -6,30 +7,75 @@ import { generateHints } from "../config/shortcuts";
 import { diffService } from "../services/diff";
 import { theme } from "../theme";
 import type {
+	KeyInfo,
 	NavigationState,
 	RefsState,
 	ScrollboxRef,
 	TextState,
 } from "../types";
 
-// DiffView only needs text (read-only), navigation (for mode), and scrollbox ref
 interface DiffViewProps {
 	text: Pick<TextState, "originalText" | "modifiedText">;
-	navigation: Pick<NavigationState, "diffMode">;
+	navigation: Pick<NavigationState, "diffMode" | "setDiffMode">;
 	refs: Pick<RefsState, "scrollboxRef">;
+	onBack: () => void;
+	onQuit: () => void;
 }
 
 export function DiffView(props: DiffViewProps) {
 	const { text, navigation, refs } = props;
 
-	const diffContent = () =>
-		diffService.generate(text.originalText(), text.modifiedText());
+	useKeyboard((key: KeyInfo) => {
+		if (key.ctrl || key.meta) return;
 
-	const hasContent = () =>
-		diffService.hasContent(text.originalText(), text.modifiedText());
+		switch (key.name) {
+			case "escape":
+				props.onBack();
+				break;
+			case "tab":
+				navigation.setDiffMode((prev) =>
+					prev === "unified" ? "split" : "unified",
+				);
+				break;
+			case "j":
+			case "down":
+				refs.scrollboxRef.current?.scrollBy(3);
+				break;
+			case "k":
+			case "up":
+				refs.scrollboxRef.current?.scrollBy(-3);
+				break;
+			case "g":
+				if (!key.shift) {
+					refs.scrollboxRef.current?.scrollTo(0);
+				}
+				break;
+			case "G":
+				if (key.shift && refs.scrollboxRef.current) {
+					refs.scrollboxRef.current.scrollTo(
+						refs.scrollboxRef.current.scrollHeight,
+					);
+				}
+				break;
+			case "q":
+				props.onQuit();
+				break;
+		}
+	});
 
-	const hasChanges = () =>
-		diffService.hasChanges(text.originalText(), text.modifiedText());
+	const hasContent = createMemo(() =>
+		diffService.hasContent(text.originalText(), text.modifiedText()),
+	);
+
+	const hasChanges = createMemo(() =>
+		diffService.hasChanges(text.originalText(), text.modifiedText()),
+	);
+
+	const diffContent = createMemo(() =>
+		hasChanges()
+			? diffService.generate(text.originalText(), text.modifiedText())
+			: "",
+	);
 
 	return (
 		<box flexDirection="column" flexGrow={1}>
