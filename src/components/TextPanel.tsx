@@ -27,7 +27,6 @@ export function TextPanel(props: TextPanelProps) {
 					props.textareaRef.current = el;
 				}}
 				flexGrow={1}
-				border={false}
 				initialValue={props.value()}
 				placeholder={props.placeholder}
 				backgroundColor="transparent"
