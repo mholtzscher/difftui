@@ -14,7 +14,7 @@ export function Header(props: HeaderProps) {
 			paddingBottom={1}
 			backgroundColor={theme.headerBg}
 		>
-			<ascii_font font="tiny" text="simple-diff" />
+			<ascii_font font="tiny" text="difftui" />
 			<Show when={props.subtitle}>
 				<text fg={theme.subtext0}>{props.subtitle}</text>
 			</Show>

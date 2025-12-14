@@ -43,7 +43,7 @@
         in
         {
           default = pkgs.bun2nix.mkDerivation {
-            pname = "simple-diff";
+            pname = "difftui";
             version = "0.1.0";
 
             src = ./.;
@@ -70,21 +70,21 @@
 
             installPhase = ''
               runHook preInstall
-              mkdir -p $out/lib/simple-diff $out/bin
+              mkdir -p $out/lib/difftui $out/bin
 
-              cp -r dist node_modules $out/lib/simple-diff
+              cp -r dist node_modules $out/lib/difftui
 
-              makeWrapper ${pkgs.bun}/bin/bun $out/bin/simple-diff \
+              makeWrapper ${pkgs.bun}/bin/bun $out/bin/difftui \
                 --add-flags "run" \
-                --add-flags "$out/lib/simple-diff/dist/index.js" \
-                --argv0 simple-diff
+                --add-flags "$out/lib/difftui/dist/index.js" \
+                --argv0 difftui
 
               runHook postInstall
             '';
 
             meta = {
               description = "A simple diff tool";
-              mainProgram = "simple-diff";
+              mainProgram = "difftui";
             };
           };
         }

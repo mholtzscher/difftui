@@ -1,4 +1,4 @@
-// Theme abstraction for simple-diff
+// Theme abstraction for difftui
 // Currently using Catppuccin Mocha palette
 // Replace this file to change the color scheme
 
