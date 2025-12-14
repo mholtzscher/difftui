@@ -1,16 +1,70 @@
-# solid
-hi again
+# difftui
 
-To install dependencies:
+A TUI for comparing and diffing text.
+
+## Features
+
+- Side-by-side text input panels
+- Unified and split diff views
+- Syntax highlighted diff output
+- Clipboard paste support
+- Vim-style navigation
+
+## Installation
+
+### With Nix (recommended)
 
 ```bash
+nix run github:mholtzscher/difftui
+```
+
+Or add to your flake:
+
+```nix
+{
+  inputs.difftui.url = "github:mholtzscher/difftui";
+}
+```
+
+### From source
+
+Requires [Bun](https://bun.sh):
+
+```bash
+git clone https://github.com/mholtzscher/difftui
+cd difftui
 bun install
+bun run dev
 ```
 
-To run:
+## Usage
 
 ```bash
-bun dev
+difftui
 ```
 
-This project was created using `bun create tui`. [create-tui](https://git.new/create-tui) is the easiest way to get started with OpenTUI.
+## Keybindings
+
+### Input view
+
+| Key   | Action       |
+| ----- | ------------ |
+| `Tab` | Switch panel |
+| `d`   | View diff    |
+| `c`   | Clear panel  |
+| `p`   | Paste        |
+| `q`   | Quit         |
+
+### Diff view
+
+| Key   | Action       |
+| ----- | ------------ |
+| `Esc` | Back         |
+| `Tab` | Toggle view  |
+| `j/k` | Scroll       |
+| `g/G` | Top/bottom   |
+| `q`   | Quit         |
+
+## License
+
+MIT
