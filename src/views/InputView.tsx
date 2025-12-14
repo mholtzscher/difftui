@@ -74,7 +74,7 @@ export function InputView(props: InputViewProps) {
 	return (
 		<box flexDirection="column" flexGrow={1}>
 			<Header />
-			<box flexDirection="row" flexGrow={1} paddingBottom={1}>
+			<box flexDirection="row" flexGrow={1}>
 				<TextPanel
 					title="Original"
 					value={text.originalText}
