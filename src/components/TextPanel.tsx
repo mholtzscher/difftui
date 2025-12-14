@@ -17,23 +17,12 @@ export function TextPanel(props: TextPanelProps) {
 			flexDirection="column"
 			flexGrow={1}
 			flexBasis={0}
-			border={true}
+			border
 			borderStyle="rounded"
 			borderColor={props.focused ? theme.borderFocused : theme.border}
 			backgroundColor={theme.base}
-			marginLeft={1}
-			marginRight={1}
+			title={props.title}
 		>
-			<box
-				backgroundColor={props.focused ? theme.surface1 : theme.surface0}
-				paddingLeft={1}
-				paddingRight={1}
-				height={1}
-			>
-				<text fg={props.focused ? theme.primary : theme.subtext0}>
-					{props.title}
-				</text>
-			</box>
 			<textarea
 				ref={(el: TextareaRef) => {
 					props.textareaRef.current = el;

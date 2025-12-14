@@ -74,7 +74,6 @@ export function InputView(props: InputViewProps) {
 	return (
 		<box flexDirection="column" flexGrow={1}>
 			<Header />
-			// TODO: is this paddingBottom needed?
 			<box flexDirection="row" flexGrow={1} paddingBottom={1}>
 				<TextPanel
 					title="Original"
