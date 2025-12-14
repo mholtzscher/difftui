@@ -76,7 +76,7 @@ export function InputView(props: InputViewProps) {
 			<Header />
 			<box flexDirection="row" flexGrow={1}>
 				<TextPanel
-					title="Original"
+					title="Left"
 					value={text.originalText}
 					setValue={text.setOriginalText}
 					focused={focus.focusedPanel() === "left"}
@@ -84,7 +84,7 @@ export function InputView(props: InputViewProps) {
 					textareaRef={refs.leftTextareaRef}
 				/>
 				<TextPanel
-					title="Modified"
+					title="Right"
 					value={text.modifiedText}
 					setValue={text.setModifiedText}
 					focused={focus.focusedPanel() === "right"}
