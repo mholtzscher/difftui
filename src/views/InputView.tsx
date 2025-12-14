@@ -39,13 +39,16 @@ export function InputView(props: InputViewProps) {
 	};
 
 	const handleClear = () => {
-		text.setOriginalText("");
-		text.setModifiedText("");
-		if (refs.leftTextareaRef.current?.editBuffer) {
-			refs.leftTextareaRef.current.editBuffer.setText("");
-		}
-		if (refs.rightTextareaRef.current?.editBuffer) {
-			refs.rightTextareaRef.current.editBuffer.setText("");
+		if (focus.focusedPanel() === "left") {
+			text.setOriginalText("");
+			if (refs.leftTextareaRef.current?.editBuffer) {
+				refs.leftTextareaRef.current.editBuffer.setText("");
+			}
+		} else {
+			text.setModifiedText("");
+			if (refs.rightTextareaRef.current?.editBuffer) {
+				refs.rightTextareaRef.current.editBuffer.setText("");
+			}
 		}
 	};
 
@@ -59,7 +62,7 @@ export function InputView(props: InputViewProps) {
 			case "d":
 				props.onViewDiff();
 				break;
-			case "r":
+			case "c":
 				handleClear();
 				break;
 			case "p":
