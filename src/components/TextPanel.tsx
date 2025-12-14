@@ -28,8 +28,6 @@ export function TextPanel(props: TextPanelProps) {
 				flexGrow={1}
 				initialValue={props.value()}
 				placeholder={props.placeholder}
-				backgroundColor="transparent"
-				focusedBackgroundColor="transparent"
 				textColor={theme.text}
 				focusedTextColor={theme.text}
 			/>
