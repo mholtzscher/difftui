@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/mholtzscher/difftui/compare/difftui-v0.1.0...difftui-v0.1.1) (2025-12-14)
+
+
+### Bug Fixes
+
+* ensure proper bundling before compiling executable ([9d30bc9](https://github.com/mholtzscher/difftui/commit/9d30bc9c3620364d765b430db6ca26a0caa39017))
+
 ## 0.1.0 (2025-12-14)
 
 
