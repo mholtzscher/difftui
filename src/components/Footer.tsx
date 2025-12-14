@@ -1,7 +1,8 @@
 import { theme } from "../theme";
+import { HelpBar, type HelpItem } from "./HelpBar";
 
 interface FooterProps {
-	hints: string;
+	items: HelpItem[];
 }
 
 export function Footer(props: FooterProps) {
@@ -12,7 +13,7 @@ export function Footer(props: FooterProps) {
 			paddingRight={2}
 			height={1}
 		>
-			<text fg={theme.overlay1}>{props.hints}</text>
+			<HelpBar items={props.items} />
 		</box>
 	);
 }

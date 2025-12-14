@@ -3,7 +3,7 @@ import { createMemo, Show } from "solid-js";
 import { EmptyDiffMessage, NoChangesMessage } from "../components/EmptyState";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { generateHints } from "../config/shortcuts";
+import { getHints } from "../config/shortcuts";
 import { diffService } from "../services/diff";
 import { theme } from "../theme";
 import type {
@@ -120,7 +120,7 @@ export function DiffView(props: DiffViewProps) {
 					</box>
 				</Show>
 			</box>
-			<Footer hints={generateHints("diff")} />
+			<Footer items={getHints("diff")} />
 		</box>
 	);
 }

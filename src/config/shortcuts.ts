@@ -1,28 +1,23 @@
+import type { HelpItem } from "../components/HelpBar";
 import type { View } from "../types";
 
-interface ShortcutHint {
-	key: string;
-	description: string;
-}
-
-const hints: Record<View, ShortcutHint[]> = {
+const hints: Record<View, HelpItem[]> = {
 	input: [
-		{ key: "Tab", description: "Switch panel" },
-		{ key: "d", description: "View diff" },
-		{ key: "r", description: "Clear" },
-		{ key: "p", description: "Paste" },
-		{ key: "q", description: "Quit" },
+		{ key: "Tab", description: "switch panel" },
+		{ key: "d", description: "view diff" },
+		{ key: "r", description: "clear" },
+		{ key: "p", description: "paste" },
+		{ key: "q", description: "quit" },
 	],
 	diff: [
-		{ key: "Esc", description: "Back to input" },
-		{ key: "Tab", description: "Toggle unified/split" },
-		{ key: "j/k", description: "Scroll" },
-		{ key: "g", description: "Top" },
-		{ key: "G", description: "Bottom" },
-		{ key: "q", description: "Quit" },
+		{ key: "Esc", description: "back" },
+		{ key: "Tab", description: "toggle view" },
+		{ key: "j/k", description: "scroll" },
+		{ key: "g/G", description: "top/bottom" },
+		{ key: "q", description: "quit" },
 	],
 };
 
-export function generateHints(view: View): string {
-	return hints[view].map((h) => `[${h.key}] ${h.description}`).join("  ");
+export function getHints(view: View): HelpItem[] {
+	return hints[view];
 }

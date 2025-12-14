@@ -2,7 +2,7 @@ import { useKeyboard } from "@opentui/solid";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { TextPanel } from "../components/TextPanel";
-import { generateHints } from "../config/shortcuts";
+import { getHints } from "../config/shortcuts";
 import { clipboard } from "../services/clipboard";
 import type { FocusState, KeyInfo, RefsState, TextState } from "../types";
 
@@ -78,7 +78,6 @@ export function InputView(props: InputViewProps) {
 				<TextPanel
 					title="Left"
 					value={text.originalText}
-					setValue={text.setOriginalText}
 					focused={focus.focusedPanel() === "left"}
 					placeholder="Paste original text here..."
 					textareaRef={refs.leftTextareaRef}
@@ -86,13 +85,12 @@ export function InputView(props: InputViewProps) {
 				<TextPanel
 					title="Right"
 					value={text.modifiedText}
-					setValue={text.setModifiedText}
 					focused={focus.focusedPanel() === "right"}
 					placeholder="Paste modified text here..."
 					textareaRef={refs.rightTextareaRef}
 				/>
 			</box>
-			<Footer hints={generateHints("input")} />
+			<Footer items={getHints("input")} />
 		</box>
 	);
 }

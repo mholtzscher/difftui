@@ -1,11 +1,10 @@
-import type { Accessor, Setter } from "solid-js";
+import type { Accessor } from "solid-js";
 import { theme } from "../theme";
 import type { TextareaRef } from "../types";
 
 interface TextPanelProps {
 	title: string;
 	value: Accessor<string>;
-	setValue: Setter<string>;
 	focused: boolean;
 	placeholder: string;
 	textareaRef: { current: TextareaRef | null };
@@ -33,12 +32,6 @@ export function TextPanel(props: TextPanelProps) {
 				focusedBackgroundColor="transparent"
 				textColor={theme.text}
 				focusedTextColor={theme.text}
-				onContentChange={() => {
-					// Update the value when content changes
-					if (props.textareaRef.current?.editBuffer) {
-						props.setValue(props.textareaRef.current.editBuffer.getText());
-					}
-				}}
 			/>
 		</box>
 	);
