@@ -50,10 +50,14 @@ export async function parseArgs(): Promise<CliArgs> {
 		}
 	}
 
-	return {
-		originalFile: result.original,
-		modifiedFile: result.modified,
-	};
+	if (result.original && result.modified) {
+		return {
+			originalFile: result.original,
+			modifiedFile: result.modified,
+		};
+	}
+
+	return {};
 }
 
 export interface FileContents {
