@@ -45,7 +45,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Bundle
-        run: bun run bundle.ts
+        run: bun run bundle.ts --compile
 
       - name: Build executable
         run: bun build ./dist/index.js --compile --outfile=${{ matrix.artifact }}
