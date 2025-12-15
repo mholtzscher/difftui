@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/mholtzscher/difftui/compare/difftui-v0.1.7...difftui-v0.1.8) (2025-12-15)
+
+
+### Features
+
+* mark @opentui/core as external dependency ([#23](https://github.com/mholtzscher/difftui/issues/23)) ([c5e86f3](https://github.com/mholtzscher/difftui/commit/c5e86f3117de60e8d98df5265a3edffa1d941ece))
+
 ## [0.1.7](https://github.com/mholtzscher/difftui/compare/difftui-v0.1.6...difftui-v0.1.7) (2025-12-15)
 
 
