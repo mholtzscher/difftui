@@ -14,6 +14,7 @@ const result = await Bun.build({
 	target: "bun",
 	sourcemap: "none",
 	plugins: [solidPlugin],
+	external: ["@opentui/core"],
 });
 
 if (!result.success) {
