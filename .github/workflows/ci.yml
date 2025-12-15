@@ -16,3 +16,35 @@ jobs:
       run-lint: true
       run-typecheck: true
       run-build: true
+
+  build-test:
+    name: Test Release Build (${{ matrix.artifact }})
+    if: startsWith(github.head_ref, 'release-please-')
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: difftui-linux-x64
+          - os: ubuntu-24.04-arm
+            artifact: difftui-linux-arm64
+          - os: macos-latest
+            artifact: difftui-darwin-arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Bundle for compile
+        run: bun run bundle.ts --compile
+
+      - name: Build executable
+        run: bun build ./dist/index.js --compile --outfile=${{ matrix.artifact }}
+
+      - name: Verify executable exists
+        run: test -f ${{ matrix.artifact }} && echo "Build successful"
