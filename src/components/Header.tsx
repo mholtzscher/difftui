@@ -1,11 +1,6 @@
-import { Show } from "solid-js";
 import { theme } from "../theme";
 
-interface HeaderProps {
-	subtitle?: string;
-}
-
-export function Header(props: HeaderProps) {
+export function Header() {
 	return (
 		<box
 			flexDirection="column"
@@ -13,14 +8,12 @@ export function Header(props: HeaderProps) {
 			paddingTop={1}
 			paddingBottom={1}
 			backgroundColor={theme.base}
+			flexShrink={0}
 		>
 			<box flexDirection="row" columnGap={1}>
 				<ascii_font font="tiny" text="diff" color={theme.blue} />
 				<ascii_font font="tiny" text="tui" color={theme.mauve} />
 			</box>
-			<Show when={props.subtitle}>
-				<text fg={theme.subtext0}>{props.subtitle}</text>
-			</Show>
 		</box>
 	);
 }

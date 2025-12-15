@@ -79,10 +79,8 @@ export function DiffView(props: DiffViewProps) {
 
 	return (
 		<box flexDirection="column" flexGrow={1}>
-			<Header
-				subtitle={`View: ${navigation.diffMode() === "unified" ? "Unified" : "Split"}`}
-			/>
-			<box flexGrow={1} padding={1}>
+			<Header />
+			<box flexGrow={1}>
 				<Show when={!hasContent()}>
 					<EmptyDiffMessage />
 				</Show>
@@ -94,8 +92,9 @@ export function DiffView(props: DiffViewProps) {
 						flexGrow={1}
 						border={true}
 						borderStyle="rounded"
-						borderColor={theme.border}
+						borderColor={theme.borderFocused}
 						overflow="hidden"
+						title={`View: ${navigation.diffMode() === "unified" ? "Unified" : "Split"}`}
 					>
 						<scrollbox
 							ref={(el: ScrollboxRef) => {
