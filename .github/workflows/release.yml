@@ -59,3 +59,15 @@ jobs:
           gh release upload ${{ needs.release-please.outputs.tag_name }} \
             ${{ matrix.artifact }} \
             --clobber
+
+  update-homebrew:
+    needs: [release-please, build]
+    if: ${{ needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Homebrew formula
+        uses: dawidd6/action-homebrew-bump-formula@v4
+        with:
+          token: ${{ secrets.PAT }}
+          tap: mholtzscher/tap
+          formula: difftui
