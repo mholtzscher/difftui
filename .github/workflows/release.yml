@@ -71,3 +71,4 @@ jobs:
           token: ${{ secrets.PAT }}
           tap: mholtzscher/tap
           formula: difftui
+          tag: ${{ needs.release-please.outputs.tag_name }}
