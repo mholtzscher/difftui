@@ -15,7 +15,7 @@ import { InputView } from "./views/InputView";
 export interface AppProps {
 	initialContent?: {
 		originalText: string;
-		modifiedText: string;
+		modifiedText?: string;
 	};
 }
 
@@ -27,7 +27,7 @@ export function App(props: AppProps) {
 		props.initialContent?.modifiedText ?? "",
 	);
 	const [view, setView] = createSignal<View>(
-		props.initialContent ? "diff" : "input",
+		props.initialContent?.modifiedText !== undefined ? "diff" : "input",
 	);
 	const [diffMode, setDiffMode] = createSignal<DiffMode>("unified");
 	const [focusedPanel, setFocusedPanel] = createSignal<FocusedPanel>("left");

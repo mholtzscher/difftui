@@ -14,12 +14,12 @@ const app = command({
 		file1: positional({
 			type: optional(string),
 			displayName: "file1",
-			description: "First file (original if two files, modified if one)",
+			description: "Original file (opens in input view if file2 not provided)",
 		}),
 		file2: positional({
 			type: optional(string),
 			displayName: "file2",
-			description: "Second file (modified)",
+			description: "Modified file (shows diff view when both files provided)",
 		}),
 	},
 	handler: async (args) => args,
@@ -38,30 +38,30 @@ export async function parseArgs(argv: string[]): Promise<CliArgs> {
 	if (result.file1) await assertFileExists(result.file1);
 	if (result.file2) await assertFileExists(result.file2);
 
-	// Two files: file1 is original, file2 is modified
-	if (result.file1 && result.file2) {
-		return { originalFile: result.file1, modifiedFile: result.file2 };
-	}
-
-	// One file: treat as modified (diff against empty)
-	if (result.file1) {
-		return { modifiedFile: result.file1 };
-	}
-
-	return {};
+	return {
+		originalFile: result.file1,
+		modifiedFile: result.file2,
+	};
 }
 
-export async function loadFileContents(
-	args: CliArgs,
-): Promise<{ originalText: string; modifiedText: string } | undefined> {
-	if (!args.modifiedFile) return undefined;
+export async function loadFileContents(args: CliArgs): Promise<
+	| {
+			originalText: string;
+			modifiedText?: string;
+	  }
+	| undefined
+> {
+	if (!args.originalFile && !args.modifiedFile) return undefined;
 
 	let originalText = "";
 	if (args.originalFile) {
 		originalText = await Bun.file(args.originalFile).text();
 	}
 
-	const modifiedText = await Bun.file(args.modifiedFile).text();
+	let modifiedText: string | undefined;
+	if (args.modifiedFile) {
+		modifiedText = await Bun.file(args.modifiedFile).text();
+	}
 
 	return { originalText, modifiedText };
 }
