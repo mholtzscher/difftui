@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/mholtzscher/difftui/compare/difftui-v0.1.8...difftui-v0.1.9) (2025-12-16)
+
+
+### Features
+
+* add macos-15-intel build target and enable release workflow tests ([#26](https://github.com/mholtzscher/difftui/issues/26)) ([ff86b0a](https://github.com/mholtzscher/difftui/commit/ff86b0a0358ce4f0271fea1c904113e405c3e2c8))
+
 ## [0.1.8](https://github.com/mholtzscher/difftui/compare/difftui-v0.1.7...difftui-v0.1.8) (2025-12-15)
 
 
