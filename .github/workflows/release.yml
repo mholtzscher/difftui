@@ -66,9 +66,58 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update Homebrew formula
-        uses: dawidd6/action-homebrew-bump-formula@v4
-        with:
-          token: ${{ secrets.PAT }}
-          tap: mholtzscher/tap
-          formula: difftui
-          tag: ${{ needs.release-please.outputs.tag_name }}
+        env:
+          VERSION: ${{ needs.release-please.outputs.version }}
+          TAG: ${{ needs.release-please.outputs.tag_name }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: |
+          BASE="https://github.com/mholtzscher/difftui/releases/download/${TAG}"
+          sha() { curl -sL "$1" | sha256sum | cut -d' ' -f1; }
+
+          git clone "https://${GITHUB_TOKEN}@github.com/mholtzscher/homebrew-tap.git" homebrew-tap
+          cd homebrew-tap
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          cat > Formula/difftui.rb <<EOF
+          class Difftui < Formula
+            desc "TUI for comparing and diffing text"
+            homepage "https://github.com/mholtzscher/difftui"
+            version "${VERSION}"
+            license "MIT"
+
+            on_macos do
+              on_arm do
+                url "${BASE}/difftui-darwin-arm64"
+                sha256 "$(sha ${BASE}/difftui-darwin-arm64)"
+              end
+              on_intel do
+                url "${BASE}/difftui-darwin-x64"
+                sha256 "$(sha ${BASE}/difftui-darwin-x64)"
+              end
+            end
+
+            on_linux do
+              on_arm do
+                url "${BASE}/difftui-linux-arm64"
+                sha256 "$(sha ${BASE}/difftui-linux-arm64)"
+              end
+              on_intel do
+                url "${BASE}/difftui-linux-x64"
+                sha256 "$(sha ${BASE}/difftui-linux-x64)"
+              end
+            end
+
+            def install
+              bin.install Dir["difftui*"].first => "difftui"
+            end
+
+            test do
+              assert_predicate bin/"difftui", :executable?
+            end
+          end
+          EOF
+
+          git add Formula/difftui.rb
+          git commit -m "difftui ${VERSION}"
+          git push
