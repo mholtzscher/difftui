@@ -19,7 +19,7 @@ jobs:
 
   build-test:
     name: Test Release Build (${{ matrix.artifact }})
-    if: startsWith(github.head_ref, 'release-please-')
+    # if: startsWith(github.head_ref, 'release-please-')
     strategy:
       matrix:
         include:
@@ -29,6 +29,8 @@ jobs:
             artifact: difftui-linux-arm64
           - os: macos-latest
             artifact: difftui-darwin-arm64
+          - os: macos-15-intel
+            artifact: difftui-darwin-x64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
