@@ -3,6 +3,7 @@ import { version } from "../package.json";
 
 export type CliArgs =
 	| { originalFile: string; modifiedFile: string }
+	| { originalFile?: undefined; modifiedFile: string }
 	| { originalFile?: undefined; modifiedFile?: undefined };
 
 const app = command({
@@ -27,22 +28,15 @@ const app = command({
 export async function parseArgs(): Promise<CliArgs> {
 	const result = await run(app, process.argv.slice(2));
 
-	// Validate: if one file is provided, both must be provided
-	if (
-		(result.original && !result.modified) ||
-		(!result.original && result.modified)
-	) {
-		console.error("Error: Please provide both original and modified files");
-		process.exit(1);
-	}
-
 	// Verify files exist if provided
-	if (result.original && result.modified) {
+	if (result.original) {
 		const originalFile = Bun.file(result.original);
 		if (!(await originalFile.exists())) {
 			console.error(`Error: File not found: ${result.original}`);
 			process.exit(1);
 		}
+	}
+	if (result.modified) {
 		const modifiedFile = Bun.file(result.modified);
 		if (!(await modifiedFile.exists())) {
 			console.error(`Error: File not found: ${result.modified}`);
@@ -57,6 +51,13 @@ export async function parseArgs(): Promise<CliArgs> {
 		};
 	}
 
+	// Single file provided - treat as modified file (diff against empty)
+	if (result.original) {
+		return {
+			modifiedFile: result.original,
+		};
+	}
+
 	return {};
 }
 
@@ -68,14 +69,14 @@ export interface FileContents {
 export async function loadFileContents(
 	args: CliArgs,
 ): Promise<FileContents | undefined> {
-	if (!args.originalFile || !args.modifiedFile) {
+	if (!args.modifiedFile) {
 		return undefined;
 	}
 
-	const [originalText, modifiedText] = await Promise.all([
-		Bun.file(args.originalFile).text(),
-		Bun.file(args.modifiedFile).text(),
-	]);
+	const modifiedText = await Bun.file(args.modifiedFile).text();
+	const originalText = args.originalFile
+		? await Bun.file(args.originalFile).text()
+		: "";
 
 	return { originalText, modifiedText };
 }
