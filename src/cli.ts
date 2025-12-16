@@ -1,82 +1,67 @@
 import { command, optional, positional, run, string } from "cmd-ts";
 import { version } from "../package.json";
 
-export type CliArgs =
-	| { originalFile: string; modifiedFile: string }
-	| { originalFile?: undefined; modifiedFile: string }
-	| { originalFile?: undefined; modifiedFile?: undefined };
+interface CliArgs {
+	originalFile?: string;
+	modifiedFile?: string;
+}
 
 const app = command({
 	name: "difftui",
 	description: "A terminal UI for comparing text and viewing diffs",
 	version,
 	args: {
-		original: positional({
+		file1: positional({
 			type: optional(string),
-			displayName: "original",
-			description: "Path to the original file",
+			displayName: "file1",
+			description: "First file (original if two files, modified if one)",
 		}),
-		modified: positional({
+		file2: positional({
 			type: optional(string),
-			displayName: "modified",
-			description: "Path to the modified file",
+			displayName: "file2",
+			description: "Second file (modified)",
 		}),
 	},
 	handler: async (args) => args,
 });
 
-export async function parseArgs(): Promise<CliArgs> {
-	const result = await run(app, process.argv.slice(2));
-
-	// Verify files exist if provided
-	if (result.original) {
-		const originalFile = Bun.file(result.original);
-		if (!(await originalFile.exists())) {
-			console.error(`Error: File not found: ${result.original}`);
-			process.exit(1);
-		}
+async function assertFileExists(path: string): Promise<void> {
+	if (!(await Bun.file(path).exists())) {
+		console.error(`Error: File not found: ${path}`);
+		process.exit(1);
 	}
-	if (result.modified) {
-		const modifiedFile = Bun.file(result.modified);
-		if (!(await modifiedFile.exists())) {
-			console.error(`Error: File not found: ${result.modified}`);
-			process.exit(1);
-		}
-	}
+}
 
-	if (result.original && result.modified) {
-		return {
-			originalFile: result.original,
-			modifiedFile: result.modified,
-		};
+export async function parseArgs(argv: string[]): Promise<CliArgs> {
+	const result = await run(app, argv);
+
+	if (result.file1) await assertFileExists(result.file1);
+	if (result.file2) await assertFileExists(result.file2);
+
+	// Two files: file1 is original, file2 is modified
+	if (result.file1 && result.file2) {
+		return { originalFile: result.file1, modifiedFile: result.file2 };
 	}
 
-	// Single file provided - treat as modified file (diff against empty)
-	if (result.original) {
-		return {
-			modifiedFile: result.original,
-		};
+	// One file: treat as modified (diff against empty)
+	if (result.file1) {
+		return { modifiedFile: result.file1 };
 	}
 
 	return {};
 }
 
-export interface FileContents {
-	originalText: string;
-	modifiedText: string;
-}
-
 export async function loadFileContents(
 	args: CliArgs,
-): Promise<FileContents | undefined> {
-	if (!args.modifiedFile) {
-		return undefined;
+): Promise<{ originalText: string; modifiedText: string } | undefined> {
+	if (!args.modifiedFile) return undefined;
+
+	let originalText = "";
+	if (args.originalFile) {
+		originalText = await Bun.file(args.originalFile).text();
 	}
 
 	const modifiedText = await Bun.file(args.modifiedFile).text();
-	const originalText = args.originalFile
-		? await Bun.file(args.originalFile).text()
-		: "";
 
 	return { originalText, modifiedText };
 }
