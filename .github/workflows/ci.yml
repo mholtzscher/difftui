@@ -19,7 +19,7 @@ jobs:
 
   build-test:
     name: Test Release Build (${{ matrix.artifact }})
-    # if: startsWith(github.head_ref, 'release-please-')
+    if: startsWith(github.head_ref, 'release-please-')
     strategy:
       matrix:
         include:
