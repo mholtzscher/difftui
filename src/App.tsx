@@ -12,10 +12,23 @@ import { createRef } from "./types";
 import { DiffView } from "./views/DiffView";
 import { InputView } from "./views/InputView";
 
-export function App() {
-	const [originalText, setOriginalText] = createSignal("");
-	const [modifiedText, setModifiedText] = createSignal("");
-	const [view, setView] = createSignal<View>("input");
+export interface AppProps {
+	initialContent?: {
+		originalText: string;
+		modifiedText?: string;
+	};
+}
+
+export function App(props: AppProps) {
+	const [originalText, setOriginalText] = createSignal(
+		props.initialContent?.originalText ?? "",
+	);
+	const [modifiedText, setModifiedText] = createSignal(
+		props.initialContent?.modifiedText ?? "",
+	);
+	const [view, setView] = createSignal<View>(
+		props.initialContent?.modifiedText !== undefined ? "diff" : "input",
+	);
 	const [diffMode, setDiffMode] = createSignal<DiffMode>("unified");
 	const [focusedPanel, setFocusedPanel] = createSignal<FocusedPanel>("left");
 
