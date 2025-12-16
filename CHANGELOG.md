@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/mholtzscher/difftui/compare/difftui-v0.1.9...difftui-v0.1.10) (2025-12-16)
+
+
+### Miscellaneous Chores
+
+* release 0.1.10 ([cf1b0da](https://github.com/mholtzscher/difftui/commit/cf1b0da35c2640347df6d974f51c4d81479ef066))
+
 ## [0.1.9](https://github.com/mholtzscher/difftui/compare/difftui-v0.1.8...difftui-v0.1.9) (2025-12-16)
 
 
