@@ -1,9 +1,10 @@
-import { useKeyboard } from "@opentui/solid";
+import { useKeyboard, useRenderer } from "@opentui/solid";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { TextPanel } from "../components/TextPanel";
 import { getHints } from "../config/shortcuts";
 import { clipboardService } from "../services/clipboard";
+import { editorService } from "../services/editor";
 import type { FocusState, KeyInfo, RefsState, TextState } from "../types";
 
 interface InputViewProps {
@@ -16,6 +17,7 @@ interface InputViewProps {
 
 export function InputView(props: InputViewProps) {
 	const { text, focus, refs } = props;
+	const renderer = useRenderer();
 
 	const handlePaste = async () => {
 		try {
@@ -67,6 +69,29 @@ export function InputView(props: InputViewProps) {
 		}
 	};
 
+	const handleExternalEdit = async () => {
+		const isLeft = focus.focusedPanel() === "left";
+		const content = isLeft ? text.originalText() : text.modifiedText();
+
+		renderer.suspend();
+
+		try {
+			const result = await editorService.edit(content);
+
+			if (result.success) {
+				if (isLeft) {
+					text.setOriginalText(result.content);
+					refs.leftTextareaRef.current?.editBuffer?.setText(result.content);
+				} else {
+					text.setModifiedText(result.content);
+					refs.rightTextareaRef.current?.editBuffer?.setText(result.content);
+				}
+			}
+		} finally {
+			renderer.resume();
+		}
+	};
+
 	useKeyboard((key: KeyInfo) => {
 		if (key.ctrl || key.meta) return;
 
@@ -85,6 +110,9 @@ export function InputView(props: InputViewProps) {
 				break;
 			case "s":
 				handleSwap();
+				break;
+			case "e":
+				void handleExternalEdit();
 				break;
 			case "q":
 				props.onQuit();
