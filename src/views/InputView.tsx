@@ -3,7 +3,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { TextPanel } from "../components/TextPanel";
 import { getHints } from "../config/shortcuts";
-import { clipboard } from "../services/clipboard";
+import { clipboardService } from "../services/clipboard";
 import type { FocusState, KeyInfo, RefsState, TextState } from "../types";
 
 interface InputViewProps {
@@ -19,7 +19,7 @@ export function InputView(props: InputViewProps) {
 
 	const handlePaste = async () => {
 		try {
-			const pastedText = await clipboard.read();
+			const pastedText = await clipboardService.read();
 			const targetRef =
 				focus.focusedPanel() === "left"
 					? refs.leftTextareaRef
