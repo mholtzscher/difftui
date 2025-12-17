@@ -1,7 +1,7 @@
 {
 	"name": "difftui",
 	"module": "src/index.tsx",
-	"version": "0.1.10",
+	"version": "0.1.11",
 	"type": "module",
 	"private": true,
 	"scripts": {
