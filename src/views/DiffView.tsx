@@ -46,15 +46,12 @@ export function DiffView(props: DiffViewProps) {
 				refs.scrollboxRef.current?.scrollBy(-3);
 				break;
 			case "g":
-				if (!key.shift) {
+				if (key.shift) {
+					// Shift+G: scroll to bottom
+					refs.scrollboxRef.current?.scrollTo(Number.MAX_SAFE_INTEGER);
+				} else {
+					// g: scroll to top
 					refs.scrollboxRef.current?.scrollTo(0);
-				}
-				break;
-			case "G":
-				if (key.shift && refs.scrollboxRef.current) {
-					refs.scrollboxRef.current.scrollTo(
-						refs.scrollboxRef.current.scrollHeight,
-					);
 				}
 				break;
 			case "q":
