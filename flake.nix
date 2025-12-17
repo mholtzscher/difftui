@@ -62,7 +62,7 @@
 
             buildPhase = ''
               runHook preBuild
-              bun run ./build.ts --compile
+              bun run ./build-nix.ts
               runHook postBuild
             '';
 
@@ -72,6 +72,8 @@
               cp difftui $out/bin/difftui
               runHook postInstall
             '';
+
+            dontStrip = true;
 
             meta = {
               description = "A simple diff tool";
