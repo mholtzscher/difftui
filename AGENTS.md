@@ -22,3 +22,4 @@
 - PascalCase for components/types, camelCase for functions/variables
 - Export interfaces alongside implementations (e.g., `DiffService` interface with `diffService` object)
 - JSDoc comments for public service methods
+- When adding/changing/removing keybinds, update both `src/config/shortcuts.ts` and the keybindings table in `README.md`

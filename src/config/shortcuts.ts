@@ -7,6 +7,7 @@ const hints: Record<View, HelpItem[]> = {
 		{ key: "d", description: "view diff" },
 		{ key: "c", description: "clear panel" },
 		{ key: "p", description: "paste" },
+		{ key: "s", description: "swap" },
 		{ key: "q", description: "quit" },
 	],
 	diff: [

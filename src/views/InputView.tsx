@@ -52,6 +52,21 @@ export function InputView(props: InputViewProps) {
 		}
 	};
 
+	const handleSwap = () => {
+		const leftText = text.originalText();
+		const rightText = text.modifiedText();
+
+		text.setOriginalText(rightText);
+		text.setModifiedText(leftText);
+
+		if (refs.leftTextareaRef.current?.editBuffer) {
+			refs.leftTextareaRef.current.editBuffer.setText(rightText);
+		}
+		if (refs.rightTextareaRef.current?.editBuffer) {
+			refs.rightTextareaRef.current.editBuffer.setText(leftText);
+		}
+	};
+
 	useKeyboard((key: KeyInfo) => {
 		if (key.ctrl || key.meta) return;
 
@@ -67,6 +82,9 @@ export function InputView(props: InputViewProps) {
 				break;
 			case "p":
 				void handlePaste();
+				break;
+			case "s":
+				handleSwap();
 				break;
 			case "q":
 				props.onQuit();

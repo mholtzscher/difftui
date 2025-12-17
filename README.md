@@ -53,6 +53,7 @@ difftui
 | `d`   | View diff    |
 | `c`   | Clear panel  |
 | `p`   | Paste        |
+| `s`   | Swap panels  |
 | `q`   | Quit         |
 
 ### Diff view
