@@ -57,27 +57,19 @@
             # ];
 
             nativeBuildInputs = with pkgs; [
-              makeWrapper
               bun
             ];
 
             buildPhase = ''
               runHook preBuild
-              bun run ./bundle.ts
+              bun run ./build.ts --compile
               runHook postBuild
             '';
 
             installPhase = ''
               runHook preInstall
-              mkdir -p $out/lib/difftui $out/bin
-
-              cp -r dist node_modules $out/lib/difftui
-
-              makeWrapper ${pkgs.bun}/bin/bun $out/bin/difftui \
-                --add-flags "run" \
-                --add-flags "$out/lib/difftui/dist/index.js" \
-                --argv0 difftui
-
+              mkdir -p $out/bin
+              cp difftui $out/bin/difftui
               runHook postInstall
             '';
 
