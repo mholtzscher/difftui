@@ -1,3 +1,4 @@
+import type { SyntaxStyle, TreeSitterClient } from "@opentui/core";
 import { useKeyboard } from "@opentui/solid";
 import { createMemo, Show } from "solid-js";
 import { EmptyDiffMessage, NoChangesMessage } from "../components/EmptyState";
@@ -18,6 +19,12 @@ interface DiffViewProps {
 	text: Pick<TextState, "originalText" | "modifiedText">;
 	navigation: Pick<NavigationState, "diffMode" | "setDiffMode">;
 	refs: Pick<RefsState, "scrollboxRef">;
+	/** Optional filetype for syntax highlighting (e.g., "typescript", "python") */
+	filetype?: string;
+	/** Optional syntax style for highlighting */
+	syntaxStyle?: SyntaxStyle;
+	/** Optional tree-sitter client for parsing */
+	treeSitterClient?: TreeSitterClient;
 	onBack: () => void;
 	onQuit: () => void;
 }
@@ -99,19 +106,22 @@ export function DiffView(props: DiffViewProps) {
 							}}
 							flexGrow={1}
 						>
-							<diff
-								diff={diffContent()}
-								view={navigation.diffMode()}
-								showLineNumbers={true}
-								addedBg={theme.diffAddedBg}
-								removedBg={theme.diffRemovedBg}
-								contextBg={theme.diffContextBg}
-								addedSignColor={theme.diffAdded}
-								removedSignColor={theme.diffRemoved}
-								lineNumberFg={theme.overlay0}
-								lineNumberBg={theme.mantle}
-								fg={theme.text}
-							/>
+						<diff
+							diff={diffContent()}
+							view={navigation.diffMode()}
+							showLineNumbers={true}
+							addedBg={theme.diffAddedBg}
+							removedBg={theme.diffRemovedBg}
+							contextBg={theme.diffContextBg}
+							addedSignColor={theme.diffAdded}
+							removedSignColor={theme.diffRemoved}
+							lineNumberFg={theme.overlay0}
+							lineNumberBg={theme.mantle}
+							fg={theme.text}
+							filetype={props.filetype}
+							syntaxStyle={props.syntaxStyle}
+							treeSitterClient={props.treeSitterClient}
+						/>
 						</scrollbox>
 					</box>
 				</Show>

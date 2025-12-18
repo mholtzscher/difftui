@@ -44,13 +44,16 @@ export async function parseArgs(argv: string[]): Promise<CliArgs> {
 	};
 }
 
-export async function loadFileContents(args: CliArgs): Promise<
-	| {
-			originalText: string;
-			modifiedText?: string;
-	  }
-	| undefined
-> {
+export interface LoadedContent {
+	originalText: string;
+	modifiedText?: string;
+	/** File path for filetype detection (uses modified file if available, else original) */
+	filePath?: string;
+}
+
+export async function loadFileContents(
+	args: CliArgs,
+): Promise<LoadedContent | undefined> {
 	if (!args.originalFile && !args.modifiedFile) return undefined;
 
 	let originalText = "";
@@ -63,5 +66,8 @@ export async function loadFileContents(args: CliArgs): Promise<
 		modifiedText = await Bun.file(args.modifiedFile).text();
 	}
 
-	return { originalText, modifiedText };
+	// Use the modified file for filetype detection, or fall back to original
+	const filePath = args.modifiedFile ?? args.originalFile;
+
+	return { originalText, modifiedText, filePath };
 }
