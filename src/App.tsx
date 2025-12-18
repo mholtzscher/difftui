@@ -1,5 +1,7 @@
+import { pathToFiletype } from "@opentui/core";
 import { useRenderer } from "@opentui/solid";
 import { createSignal, Show } from "solid-js";
+import { syntaxService } from "./services/syntax";
 import { theme } from "./theme";
 import type {
 	DiffMode,
@@ -16,6 +18,8 @@ export interface AppProps {
 	initialContent?: {
 		originalText: string;
 		modifiedText?: string;
+		/** File path for filetype detection */
+		filePath?: string;
 	};
 }
 
@@ -66,6 +70,11 @@ export function App(props: AppProps) {
 		scrollboxRef,
 	};
 
+	// Detect filetype from file path for syntax highlighting
+	const filetype = props.initialContent?.filePath
+		? pathToFiletype(props.initialContent.filePath)
+		: undefined;
+
 	return (
 		<box flexDirection="column" flexGrow={1} backgroundColor={theme.base}>
 			<Show when={view() === "input"}>
@@ -82,6 +91,9 @@ export function App(props: AppProps) {
 					text={textState}
 					navigation={navigationState}
 					refs={refsState}
+					filetype={filetype}
+					syntaxStyle={syntaxService.getStyle()}
+					treeSitterClient={syntaxService.getClient()}
 					onBack={() => setView("input")}
 					onQuit={handleQuit}
 				/>
