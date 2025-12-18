@@ -1,0 +1,15 @@
+[package]
+name = "difftui"
+version = "0.1.0"
+edition = "2021"
+description = "A TUI for comparing and diffing text"
+license = "MIT"
+repository = "https://github.com/mholtzscher/difftui"
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+clap = { version = "4", features = ["derive"] }
+similar = "2"
+arboard = "3"
+unicode-width = "0.2"
