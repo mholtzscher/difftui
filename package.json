@@ -32,5 +32,8 @@
 	},
 	"peerDependencies": {
 		"typescript": "^5.9.2"
+	},
+	"optionalDependencies": {
+		"@opentui/core-linux-x64": "^0.1.61"
 	}
 }
