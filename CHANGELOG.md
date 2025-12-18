@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.12](https://github.com/mholtzscher/difftui/compare/v0.1.11...v0.1.12) (2025-12-18)
+
+
+### Features
+
+* add clipboardy package for clipboard management ([#35](https://github.com/mholtzscher/difftui/issues/35)) ([87703de](https://github.com/mholtzscher/difftui/commit/87703dee5dc5eee22e066dc7de6939e66ba3121c)), closes [#25](https://github.com/mholtzscher/difftui/issues/25)
+* add external editor support for panel content ([#38](https://github.com/mholtzscher/difftui/issues/38)) ([6be50a4](https://github.com/mholtzscher/difftui/commit/6be50a4359bcfc6724ce4494b7f08798fdc23853))
+
 ## [0.1.11](https://github.com/mholtzscher/difftui/compare/v0.1.10...v0.1.11) (2025-12-17)
 
 
