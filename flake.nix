@@ -40,6 +40,26 @@
         system:
         let
           pkgs = pkgsFor.${system};
+          # Map nix system to bun's os/cpu flags
+          platformMap = {
+            "x86_64-linux" = {
+              os = "linux";
+              cpu = "x64";
+            };
+            "aarch64-linux" = {
+              os = "linux";
+              cpu = "arm64";
+            };
+            "x86_64-darwin" = {
+              os = "darwin";
+              cpu = "x64";
+            };
+            "aarch64-darwin" = {
+              os = "darwin";
+              cpu = "arm64";
+            };
+          };
+          platform = platformMap.${system};
         in
         {
           default = pkgs.bun2nix.mkDerivation {
@@ -51,10 +71,10 @@
               bunNix = ./bun.nix;
             };
 
-            # bunInstallFlags = [
-            # "--linker=isolated"
-            # "--backend=copyfile"
-            # ];
+            bunInstallFlags = [
+              "--os=${platform.os}"
+              "--cpu=${platform.cpu}"
+            ];
 
             nativeBuildInputs = with pkgs; [
               bun
