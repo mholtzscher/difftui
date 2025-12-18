@@ -2,6 +2,9 @@
 
 A TUI for comparing and diffing text.
 
+![Input View](assets/InputView.png)
+![Diff View](assets/DiffView.png)
+
 ## Features
 
 - Side-by-side text input panels
