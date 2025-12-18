@@ -47,14 +47,15 @@ difftui
 
 ### Input view
 
-| Key   | Action       |
-| ----- | ------------ |
-| `Tab` | Switch panel |
-| `d`   | View diff    |
-| `c`   | Clear panel  |
-| `p`   | Paste        |
-| `s`   | Swap panels  |
-| `q`   | Quit         |
+| Key   | Action           |
+| ----- | ---------------- |
+| `Tab` | Switch panel     |
+| `d`   | View diff        |
+| `e`   | Edit in $EDITOR  |
+| `c`   | Clear panel      |
+| `p`   | Paste            |
+| `s`   | Swap panels      |
+| `q`   | Quit             |
 
 ### Diff view
 
