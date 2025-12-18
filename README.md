@@ -15,7 +15,13 @@ A TUI for comparing and diffing text.
 
 ## Installation
 
-### With Nix (recommended)
+### With Homebrew
+
+```bash
+brew install mholtzscher/tap/difftui
+```
+
+### With Nix
 
 ```bash
 nix run github:mholtzscher/difftui
@@ -43,7 +49,7 @@ bun run dev
 ## Usage
 
 ```bash
-difftui
+difftui --help
 ```
 
 ## Keybindings
