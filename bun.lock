@@ -23,6 +23,9 @@
         "bun2nix": "^2.0.6",
       },
       "optionalDependencies": {
+        "@opentui/core-darwin-arm64": "^0.1.61",
+        "@opentui/core-darwin-x64": "^0.1.61",
+        "@opentui/core-linux-arm64": "^0.1.61",
         "@opentui/core-linux-x64": "^0.1.61",
       },
       "peerDependencies": {

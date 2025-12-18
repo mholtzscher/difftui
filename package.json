@@ -34,6 +34,9 @@
 		"typescript": "^5.9.2"
 	},
 	"optionalDependencies": {
+		"@opentui/core-darwin-arm64": "^0.1.61",
+		"@opentui/core-darwin-x64": "^0.1.61",
+		"@opentui/core-linux-arm64": "^0.1.61",
 		"@opentui/core-linux-x64": "^0.1.61"
 	}
 }
