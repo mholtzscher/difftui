@@ -8,6 +8,10 @@ export interface EditorResult {
 	content: string;
 }
 
+export interface EditorService {
+	edit(content: string): Promise<EditorResult>;
+}
+
 function getEditor(): string {
 	return process.env.VISUAL || process.env.EDITOR || "vi";
 }
@@ -16,7 +20,7 @@ function createTempFilePath(): string {
 	return join(tmpdir(), `difftui-${randomUUID()}.txt`);
 }
 
-export const editorService = {
+export const editorService: EditorService = {
 	async edit(content: string): Promise<EditorResult> {
 		const editor = getEditor();
 		const tempFile = createTempFilePath();
