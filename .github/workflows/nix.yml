@@ -9,3 +9,7 @@ on:
 jobs:
   nix:
     uses: mholtzscher/github-actions/.github/workflows/nix-build.yml@main
+    with:
+      cachix-name: mholtzscher
+    secrets:
+      cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
